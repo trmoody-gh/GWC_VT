@@ -2,14 +2,14 @@
 
 #include <Windows.h>
 
-#include "GWCAManager.h"
+#include "GWCAModule.h"
 #include "GWStructures.h"
 #include "GwConstants.h"
 
 namespace GWCA {
 
-	class SkillbarMgr : public GWCAManager<SkillbarMgr> {
-		friend class GWCAManager<SkillbarMgr>;
+	class SkillbarMgr : public GWCAModule<SkillbarMgr> {
+		friend class GWCAModule<SkillbarMgr>;
 
 	public:
 

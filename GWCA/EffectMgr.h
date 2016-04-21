@@ -2,7 +2,7 @@
 
 #include <Windows.h>
 
-#include "GWCAManager.h"
+#include "GWCAModule.h"
 #include "GWStructures.h"
 #include "GwConstants.h"
 #include "Hooker.h"
@@ -10,8 +10,8 @@
 
 namespace GWCA {
 
-	class EffectMgr : public GWCAManager<EffectMgr> {
-		friend class GWCAManager<EffectMgr>;
+	class EffectMgr : public GWCAModule<EffectMgr> {
+		friend class GWCAModule<EffectMgr>;
 
 	public:
 		

@@ -34,13 +34,13 @@
     <ClInclude Include="GWCA\FriendListMgr.h" />
     <ClInclude Include="GWCA\CameraMgr.h" />
     <ClInclude Include="GWCA\StoCPackets.h" />
-    <ClInclude Include="GWCA\GWCAManager.h" />
     <ClInclude Include="GWCA\GWCA.h" />
     <ClInclude Include="GWCA\GWStructPositions.h" />
     <ClInclude Include="GWCA\GameContext.h" />
     <ClInclude Include="GWCA\MemoryPatcher.h" />
     <ClInclude Include="GWCA\PlayerMgr.h" />
     <ClInclude Include="GWCA\PartyMgr.h" />
+    <ClInclude Include="GWCA\GWCAModule.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GWCA\AgentMgr.cpp">
@@ -103,10 +103,10 @@
     <ClCompile Include="GWCA\MemoryPatcher.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="GWCA\GWCAManager.cpp">
+    <ClCompile Include="GWCA\PartyMgr.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="GWCA\PartyMgr.cpp">
+    <ClCompile Include="GWCA\GWCAModule.cpp">
       <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>

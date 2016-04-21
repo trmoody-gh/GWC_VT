@@ -4,13 +4,13 @@
 #include <vector>
 #include <map>
 
-#include "GWCAManager.h"
+#include "GWCAModule.h"
 #include "Hooker.h"
 
 namespace GWCA {
 
-	class ChatMgr : public GWCAManager<ChatMgr> {
-		friend class GWCAManager<ChatMgr>;
+	class ChatMgr : public GWCAModule<ChatMgr> {
+		friend class GWCAModule<ChatMgr>;
 
 		typedef DWORD Color_t;
 		typedef std::function<const void(std::wstring, std::vector<std::wstring>)> Callback_t;

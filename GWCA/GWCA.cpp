@@ -18,9 +18,9 @@
 #include "FriendListMgr.h"
 #include "StoCMgr.h"
 #include "CameraMgr.h"
-#include "GWCAManager.h"
+#include "GWCAModule.h"
 
-std::vector<GWCA::GWCABaseManager*> GWCA::Api::managers;
+std::vector<GWCA::GWCABaseModule*> GWCA::Api::managers;
 
 bool GWCA::Api::Initialize() {
 	if (MemoryMgr::Scan()) {
@@ -37,11 +37,11 @@ bool GWCA::Api::Initialize() {
 
 void GWCA::Api::Destruct() {
 	GWCA::Gamethread().calls_.clear();
-	for (GWCABaseManager* manager : managers) {
+	for (GWCABaseModule* manager : managers) {
 		manager->RestoreHooks();
 	}
 	Sleep(100);
-	for (GWCABaseManager* manager : managers) {
+	for (GWCABaseModule* manager : managers) {
 		delete manager;
 	}
 }

@@ -10,7 +10,7 @@
 #pragma comment(lib, "d3dx9.lib")
 
 #include "Hooker.h"
-#include "GWCAManager.h"
+#include "GWCAModule.h"
 
 namespace GWCA {
 

@@ -1,12 +1,12 @@
 #pragma once
 
-#include "GWCAManager.h"
+#include "GWCAModule.h"
 #include "GameContext.h"
 #include "Hooker.h"
 
 namespace GWCA {
-	class PartyMgr : public GWCAManager<PartyMgr> {
-		friend class GWCAManager<PartyMgr>;
+	class PartyMgr : public GWCAModule<PartyMgr> {
+		friend class GWCAModule<PartyMgr>;
 		
 	public:
 		GW::PartyInfo* GetPartyInfo() { 

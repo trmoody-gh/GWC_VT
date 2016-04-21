@@ -1,11 +1,11 @@
 #pragma once
 
-#include "GWCAManager.h"
+#include "GWCAModule.h"
 #include "GameContext.h"
 
 namespace GWCA {
-	class PlayerMgr : public GWCAManager<PlayerMgr> {
-		friend class GWCAManager<PlayerMgr>;
+	class PlayerMgr : public GWCAModule<PlayerMgr> {
+		friend class GWCAModule<PlayerMgr>;
 	public:
 
 		GW::PlayerArray& GetPlayerArray() const {

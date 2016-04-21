@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -23,7 +23,7 @@
     <ClInclude Include="GWCA\GameThreadMgr.h" />
     <ClInclude Include="GWCA\GuildMgr.h" />
     <ClInclude Include="GWCA\GWCA.h" />
-    <ClInclude Include="GWCA\GWCAManager.h" />
+    <ClInclude Include="GWCA\GWCAModule.h" />
     <ClInclude Include="GWCA\GwConstants.h" />
     <ClInclude Include="GWCA\GwConstantsMaps.h" />
     <ClInclude Include="GWCA\GwConstantsSkills.h" />
@@ -54,7 +54,7 @@
     <ClCompile Include="GWCA\GameThreadMgr.cpp" />
     <ClCompile Include="GWCA\GuildMgr.cpp" />
     <ClCompile Include="GWCA\GWCA.cpp" />
-    <ClCompile Include="GWCA\GWCAManager.cpp" />
+    <ClCompile Include="GWCA\GWCAModule.cpp" />
     <ClCompile Include="GWCA\Hooker.cpp" />
     <ClCompile Include="GWCA\ItemMgr.cpp" />
     <ClCompile Include="GWCA\MapMgr.cpp" />
@@ -76,13 +76,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v120</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>

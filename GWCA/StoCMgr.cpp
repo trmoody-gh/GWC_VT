@@ -15,7 +15,7 @@ bool GWCA::StoCMgr::StoCHandlerFunc(StoC_Pak::PacketBase* pak) {
 	return do_not_process ? true : original_functions_[pak->header].handlerfunc(pak);
 }
 
-GWCA::StoCMgr::StoCMgr() : GWCAManager() {
+GWCA::StoCMgr::StoCMgr() : GWCAModule() {
 	PatternScanner scan(0x401000, 0x49A000);
 	
 	// inb4 has rages at this

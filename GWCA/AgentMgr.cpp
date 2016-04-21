@@ -7,7 +7,7 @@
 BYTE* GWCA::AgentMgr::dialog_log_ret_ = NULL;
 DWORD GWCA::AgentMgr::last_dialog_id_ = 0;
 
-GWCA::AgentMgr::AgentMgr() : GWCAManager() {
+GWCA::AgentMgr::AgentMgr() : GWCAModule() {
 	change_target_ = (ChangeTarget_t)MemoryMgr::ChangeTargetFunction;
 	move_ = (Move_t)MemoryMgr::MoveFunction;
 	dialog_log_ret_ = (BYTE*)hk_dialog_log_.Detour(MemoryMgr::DialogFunc, (BYTE*)AgentMgr::detourDialogLog, 9);

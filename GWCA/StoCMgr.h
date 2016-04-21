@@ -4,7 +4,7 @@
 #include <vector>
 #include <map>
 
-#include "GWCAManager.h"
+#include "GWCAModule.h"
 #include "StoCPackets.h"
 #include "GWStructures.h"
 #include "GameThreadMgr.h"
@@ -16,8 +16,8 @@ namespace GWCA {
 		See https://github.com/GameRevision/GWLP-R/wiki/GStoC for some already explored packets.
 	*/
 
-	class StoCMgr : public GWCAManager<StoCMgr> {
-		friend class GWCAManager<StoCMgr>;
+	class StoCMgr : public GWCAModule<StoCMgr> {
+		friend class GWCAModule<StoCMgr>;
 
 	public:
 

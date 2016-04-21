@@ -2,13 +2,13 @@
 
 #include <Windows.h>
 
-#include "GWCAManager.h"
+#include "GWCAModule.h"
 #include "GWStructures.h"
 
 namespace GWCA {
 
-	class ItemMgr : public GWCAManager<ItemMgr> {
-		friend class GWCAManager<ItemMgr>;
+	class ItemMgr : public GWCAModule<ItemMgr> {
+		friend class GWCAModule<ItemMgr>;
 
 	public:
 

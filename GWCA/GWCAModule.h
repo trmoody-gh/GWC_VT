@@ -4,21 +4,21 @@
 
 namespace GWCA {
 
-	class GWCABaseManager {
+	class GWCABaseModule {
 		friend class Api;
 
 	public:
-		virtual ~GWCABaseManager() {}
+		virtual ~GWCABaseModule() {}
 
 	protected:
-		GWCABaseManager();
+		GWCABaseModule();
 
 	private:
 		virtual void RestoreHooks() {};
 	};
 
 	template <class T>
-	class GWCAManager : GWCABaseManager {
+	class GWCAModule : GWCABaseModule {
 	public:
 		inline static T& Instance() { return *InstancePtr(); }
 		static T* InstancePtr() {
@@ -33,6 +33,6 @@ namespace GWCA {
 	};
 
 	template <class T>
-	T* GWCAManager<T>::instance_ = nullptr;
+	T* GWCAModule<T>::instance_ = nullptr;
 }
 

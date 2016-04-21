@@ -2,14 +2,14 @@
 
 #include <Windows.h>
 
-#include "GWCAManager.h"
+#include "GWCAModule.h"
 #include "GWStructures.h"
 #include "GwConstants.h"
 
 namespace GWCA {
 
-	class FriendListMgr : public GWCAManager<FriendListMgr> {
-		friend class GWCAManager<FriendListMgr>;
+	class FriendListMgr : public GWCAModule<FriendListMgr> {
+		friend class GWCAModule<FriendListMgr>;
 
 	public:
 

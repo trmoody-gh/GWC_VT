@@ -4,7 +4,7 @@
 #include "GameThreadMgr.h"
 #include "ItemMgr.h"
 
-GWCA::MerchantMgr::MerchantMgr() : GWCAManager() {
+GWCA::MerchantMgr::MerchantMgr() : GWCAModule() {
 	PatternScanner scan(0x401000,0x4FF000);
 
 	transaction_function_ = (Transaction_t)scan.FindPattern("\x8B\x45\x18\x83\xF8\x10\x76\x17\x68", "xxxxxxxxx", -0x2C);

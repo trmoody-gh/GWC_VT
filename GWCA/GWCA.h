@@ -128,13 +128,13 @@ namespace GWCA {
 #endif
 
 	class Api {
-		friend class GWCABaseManager;
+		friend class GWCABaseModule;
 
 	public:
 		static bool Initialize();
 		static void Destruct();
 
 	private:
-		static std::vector<GWCABaseManager*> managers;
+		static std::vector<GWCABaseModule*> managers;
 	};
 }

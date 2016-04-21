@@ -4,15 +4,15 @@
 #include <functional>
 #include <mutex>
 
-#include "GWCAManager.h"
+#include "GWCAModule.h"
 #include "Hooker.h"
 
 namespace GWCA {
 
 	// Shoutouts to DarthTon @ unknowncheats.me for this class.
 
-	class GameThreadMgr : public GWCAManager<GameThreadMgr> {
-		friend class GWCAManager<GameThreadMgr>;
+	class GameThreadMgr : public GWCAModule<GameThreadMgr> {
+		friend class GWCAModule<GameThreadMgr>;
 		friend class Api;
 
 	public:

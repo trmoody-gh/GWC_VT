@@ -1,13 +1,13 @@
 #pragma once
 
-#include "GWCAManager.h"
+#include "GWCAModule.h"
 #include "GWStructures.h"
 #include "MemoryPatcher.h"
 
 namespace GWCA {
 
-	class CameraMgr : public GWCAManager<CameraMgr> {
-		friend class GWCAManager<CameraMgr>;
+	class CameraMgr : public GWCAModule<CameraMgr> {
+		friend class GWCAModule<CameraMgr>;
 
 	public:
 		// X,Y,Z of camera in game world.

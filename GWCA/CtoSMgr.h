@@ -1,13 +1,13 @@
 #pragma once
 
 #include <Windows.h>
-#include "GWCAManager.h"
+#include "GWCAModule.h"
 #include "GameThreadMgr.h"
 
 namespace GWCA {
 
-	class CtoSMgr : public GWCAManager<CtoSMgr> {
-		friend class GWCAManager<CtoSMgr>;
+	class CtoSMgr : public GWCAModule<CtoSMgr> {
+		friend class GWCAModule<CtoSMgr>;
 
 	public:
 

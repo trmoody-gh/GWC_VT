@@ -3,15 +3,15 @@
 #include <Windows.h>
 #include <vector>
 
-#include "GWCAManager.h"
+#include "GWCAModule.h"
 #include "GWStructures.h"
 #include "GwConstants.h"
 #include "Hooker.h"
 
 namespace GWCA {
 
-	class AgentMgr : public GWCAManager<AgentMgr> {
-		friend class GWCAManager<AgentMgr>;
+	class AgentMgr : public GWCAModule<AgentMgr> {
+		friend class GWCAModule<AgentMgr>;
 
 	public:
 		// Get AgentArray Structures of player or target.

@@ -2,14 +2,14 @@
 
 #include <Windows.h>
 
-#include "GWCAManager.h"
+#include "GWCAModule.h"
 #include "GwConstants.h"
 #include "GWStructures.h"
 
 
 namespace GWCA {
-	class MapMgr : public GWCAManager<MapMgr> {
-		friend class GWCAManager<MapMgr>;
+	class MapMgr : public GWCAModule<MapMgr> {
+		friend class GWCAModule<MapMgr>;
 
 		struct PAB_ZoneMap {
 			const DWORD header = 0xAB;

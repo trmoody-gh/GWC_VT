@@ -2,14 +2,14 @@
 
 #include <Windows.h>
 
-#include "GWCAManager.h"
+#include "GWCAModule.h"
 #include "Hooker.h"
 #include "GWStructures.h"
 
 namespace GWCA {
 
-	class MerchantMgr : public GWCAManager<MerchantMgr> {
-		friend class GWCAManager<MerchantMgr>;
+	class MerchantMgr : public GWCAModule<MerchantMgr> {
+		friend class GWCAModule<MerchantMgr>;
 
 	public:
 		enum class TransactionType : DWORD {

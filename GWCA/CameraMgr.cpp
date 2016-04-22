@@ -33,7 +33,7 @@ GWCA::CameraMgr::CameraMgr() {
 	patch_fov->TooglePatch(true);
 }
 
-void GWCA::CameraMgr::RestoreHooks() {
+void GWCA::CameraMgr::OnDestruct() {
 	delete patch_maxdist;
 	delete patch_camupdate;
 	delete patch_fog;

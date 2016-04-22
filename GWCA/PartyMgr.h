@@ -5,8 +5,8 @@
 #include "Hooker.h"
 
 namespace GWCA {
-	class PartyMgr : public GWCAModule<PartyMgr> {
-		friend class GWCAModule<PartyMgr>;
+	class PartyMgr : public Module<PartyMgr> {
+		friend class Module<PartyMgr>;
 		
 	public:
 		GW::PartyInfo* GetPartyInfo() { 
@@ -69,7 +69,7 @@ namespace GWCA {
 	private:
 		PartyMgr();
 
-		void RestoreHooks() override;
+		void OnDestruct() override;
 
 		typedef DWORD(__stdcall *Tick_t)(DWORD unk1);
 

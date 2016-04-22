@@ -50,91 +50,32 @@ THE SOFTWARE.
 
 \**********************************************************************************/
 
-// this file is used to provide solution-specific defines to the library, 
-// add it to your solution directory and leave it empty or define stuff in it (e.g. GWAPI_USEDIRECTX)
-// it is included here to force inclusion by other projects 
-// (it is already a forced global include in GWCA project)
-#include "GWCA_defines.h"
-
-
-/*
-Class used for GWCA initialization, access and destruction
-
-// start by calling
-GWCA::Initialize()
-
-// then access through GWCA object
-GWCA api;
-api().Agent().GetPlayer()
-
-// or directly through static call
-GWCA::Api().Agent().GetPlayer()
-
-// Finally destroy GWCA
-GWCA::Destruct()
-
-*/
-
 #include <Windows.h>
 #include <vector>
 
 // included memorymgr, gamethread and ctos since 
 // they are needed by most other managers
-#include "MemoryMgr.h"
-#include "GameThreadMgr.h"
-#include "CtoSMgr.h"
-
-// include agentmgr and mapmgr by default since they are used by most applications
-#include "AgentMgr.h"
-#include "MapMgr.h"
+#include "GWCAScript.h"
 
 namespace GWCA {
 
-	class GameThreadMgr;
-	class CtoSMgr;
-	class StoCMgr;
-	class AgentMgr;
-	class PartyMgr;
-	class ItemMgr;
-	class SkillbarMgr;
-	class EffectMgr;
-	class ChatMgr;
-	class MerchantMgr;
-	class GuildMgr;
-	class MapMgr;
-	class FriendListMgr;
-	class CameraMgr;
-#ifdef GWAPI_USEDIRECTX
-	class DirectXMgr;
-#endif
-
-	// GWCA Module Accessors.
-	GameThreadMgr& Gamethread();
-	CtoSMgr& CtoS();
-	StoCMgr& StoC();
-	AgentMgr& Agents();
-	PartyMgr& Party();
-	ItemMgr& Items();
-	SkillbarMgr& Skillbar();
-	EffectMgr& Effects();
-	ChatMgr& Chat();
-	MerchantMgr& Merchant();
-	GuildMgr& Guild();
-	MapMgr& Map();
-	FriendListMgr& FriendList();
-	CameraMgr& Camera();
-#ifdef GWAPI_USEDIRECTX
-	DirectXMgr& DirectX();
-#endif
-
-	class Api {
-		friend class GWCABaseModule;
+	class ApiMgr {
+		friend class BaseModule;
 
 	public:
 		static bool Initialize();
 		static void Destruct();
 
+		static ApiMgr& Instance();
+
+		void AddScript(Script* script);
+		ApiMgr& operator+=(Script* script);
+
 	private:
-		static std::vector<GWCABaseModule*> managers;
+		static std::vector<BaseModule*> managers;
+		static std::vector<Script*> scripts;
+		static ApiMgr* mgr_instance;
+
+		static void __stdcall mainLoop();
 	};
 }

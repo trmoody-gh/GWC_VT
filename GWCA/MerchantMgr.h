@@ -8,8 +8,8 @@
 
 namespace GWCA {
 
-	class MerchantMgr : public GWCAModule<MerchantMgr> {
-		friend class GWCAModule<MerchantMgr>;
+	class MerchantMgr : public Module<MerchantMgr> {
+		friend class Module<MerchantMgr>;
 
 	public:
 		enum class TransactionType : DWORD {
@@ -73,7 +73,7 @@ namespace GWCA {
 
 
 		MerchantMgr();
-		void RestoreHooks() override;
+		void OnDestruct() override;
 
 		Transaction_t transaction_function_;
 	};

@@ -8,8 +8,8 @@
 
 namespace GWCA {
 
-	class SkillbarMgr : public GWCAModule<SkillbarMgr> {
-		friend class GWCAModule<SkillbarMgr>;
+	class SkillbarMgr : public Module<SkillbarMgr> {
+		friend class Module<SkillbarMgr>;
 
 	public:
 
@@ -37,7 +37,7 @@ namespace GWCA {
 		typedef void(__fastcall *UseSkill_t)(DWORD, DWORD, DWORD, DWORD);
 
 		SkillbarMgr();
-		void RestoreHooks() override {};
+		void OnDestruct() override {};
 
 		UseSkill_t UseSkill_;
 		GW::Skill* SkillConstants_;

@@ -15,7 +15,7 @@ bool GWCA::StoCMgr::StoCHandlerFunc(StoC_Pak::PacketBase* pak) {
 	return do_not_process ? true : original_functions_[pak->header].handlerfunc(pak);
 }
 
-GWCA::StoCMgr::StoCMgr() : GWCAModule() {
+GWCA::StoCMgr::StoCMgr() : Module() {
 	PatternScanner scan(0x401000, 0x49A000);
 	
 	// inb4 has rages at this
@@ -47,7 +47,7 @@ GWCA::StoCMgr::StoCMgr() : GWCAModule() {
 
 }
 
-void GWCA::StoCMgr::RestoreHooks() {
+void GWCA::StoCMgr::OnDestruct() {
 	for (DWORD i = 0; i < game_server_handler_.size(); ++i) {
 		game_server_handler_[i] = original_functions_[i];
 	}

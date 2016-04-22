@@ -4,7 +4,7 @@
 #include "GameThreadMgr.h"
 #include "ItemMgr.h"
 
-GWCA::MerchantMgr::MerchantMgr() : GWCAModule() {
+GWCA::MerchantMgr::MerchantMgr() : Module() {
 	PatternScanner scan(0x401000,0x4FF000);
 
 	transaction_function_ = (Transaction_t)scan.FindPattern("\x8B\x45\x18\x83\xF8\x10\x76\x17\x68", "xxxxxxxxx", -0x2C);
@@ -16,7 +16,7 @@ GWCA::MerchantMgr::MerchantMgr() : GWCAModule() {
 	}
 }
 
-void GWCA::MerchantMgr::RestoreHooks() {
+void GWCA::MerchantMgr::OnDestruct() {
 }
 
 void GWCA::MerchantMgr::SellMerchantItem(GW::Item* itemtosell, DWORD sellquantity /*= NULL*/) {

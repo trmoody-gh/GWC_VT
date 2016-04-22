@@ -1,14 +1,10 @@
 #include "GWCA.h"
 
 #include "MemoryMgr.h"
-#include "GameThreadMgr.h"
 #include "CtoSMgr.h"
 #include "AgentMgr.h"
 #include "PartyMgr.h"
 #include "ItemMgr.h"
-#ifdef GWAPI_USEDIRECTX
-#include "DirectXMgr.h"
-#endif
 #include "SkillbarMgr.h"
 #include "EffectMgr.h"
 #include "MapMgr.h"
@@ -20,14 +16,75 @@
 #include "CameraMgr.h"
 #include "GWCAModule.h"
 
-std::vector<GWCA::GWCABaseModule*> GWCA::Api::managers;
+#include "Hooker.h"
 
-bool GWCA::Api::Initialize() {
+enum e_DestructState {
+	CONTINUE,
+	DESTRUCT,
+	DESTRUCTED
+};
+
+std::vector<GWCA::BaseModule*> GWCA::ApiMgr::managers;
+std::vector<GWCA::Script*> GWCA::ApiMgr::scripts;
+GWCA::ApiMgr* GWCA::ApiMgr::mgr_instance;
+
+GWCA::Hook hk_gameloop;
+void* trampoline;
+
+e_DestructState destruct = CONTINUE;
+
+
+// Main Loop Logic
+
+void __stdcall GWCA::ApiMgr::mainLoop() {
+
+	if (destruct == DESTRUCT) {
+		for (std::vector<GWCA::Script*>::iterator it = scripts.begin(); it < scripts.cend(); ++it)
+		{
+			GWCA::Script* current_script = *it;
+			current_script->OnDestruct();
+		}
+		hk_gameloop.Retour();
+		destruct = DESTRUCTED;
+		return;
+	}
+
+	// For each script in scripts vector
+	for (std::vector<GWCA::Script*>::iterator it = scripts.begin(); it < scripts.cend(); ++it)
+	{
+		GWCA::Script* current_script = *it;
+		if (!current_script->initialized()) {
+			current_script->OnInit();
+			current_script->set_initialized(true);
+			continue; // Let init take up a time slot of the current thread iteration
+		}
+		current_script->OnMainloop();
+	}
+}
+
+void __declspec(naked) mainloopIntermediary()
+{
+	__asm {
+		push eax
+		push ecx
+		push edx
+		call mainLoop
+		pop edx
+		pop ecx
+		pop eax
+		jmp trampoline
+	}
+}
+
+bool GWCA::ApiMgr::Initialize() {
 	if (MemoryMgr::Scan()) {
+		mgr_instance = new ApiMgr();
 
-		// force the construction of at least gamethread and ctos
-		Gamethread();
-		CtoS();
+		PatternScanner scan(0x401000, 0x49a000);
+		void* gameloop_addr = (void*)scan.FindPattern("\x90\x55\x8B\xEC\x83\xEC\x08\x53\x56\x8B\xD9\x57\x89\x55\xF8", "xxxxxxxxxxxxxxx", 0);
+		if (!gameloop_addr) return false;
+
+		trampoline = (void*)hk_gameloop.Detour((BYTE*)gameloop_addr, (BYTE*)mainloopIntermediary, 6);
 
 		return true;
 	} else {
@@ -35,32 +92,32 @@ bool GWCA::Api::Initialize() {
 	}
 }
 
-void GWCA::Api::Destruct() {
-	GWCA::Gamethread().calls_.clear();
-	for (GWCABaseModule* manager : managers) {
-		manager->RestoreHooks();
+void GWCA::ApiMgr::Destruct() {
+	for (BaseModule* manager : managers) {
+		manager->OnDestruct();
 	}
-	Sleep(100);
-	for (GWCABaseModule* manager : managers) {
-		delete manager;
-	}
+	destruct = DESTRUCT;
+
+	// Memory will be deallocated when the dll is unloaded from the process,
+	// dont spend time doing what the operating system is going to do anyways.
+
+	//for (BaseModule* manager : managers) {
+	//		delete manager;
+	//	}
 }
 
-// GWCA Module Accessors.
-GWCA::GameThreadMgr&	GWCA::Gamethread()	{ return GameThreadMgr::Instance(); }
-GWCA::CtoSMgr&			GWCA::CtoS()		{ return CtoSMgr::Instance(); }
-GWCA::StoCMgr&			GWCA::StoC()		{ return StoCMgr::Instance(); }
-GWCA::AgentMgr&			GWCA::Agents()		{ return AgentMgr::Instance(); }
-GWCA::PartyMgr&			GWCA::Party()		{ return PartyMgr::Instance(); }
-GWCA::ItemMgr&			GWCA::Items()		{ return ItemMgr::Instance(); }
-GWCA::SkillbarMgr&		GWCA::Skillbar()	{ return SkillbarMgr::Instance(); }
-GWCA::EffectMgr&		GWCA::Effects()		{ return EffectMgr::Instance(); }
-GWCA::ChatMgr&			GWCA::Chat()		{ return ChatMgr::Instance(); }
-GWCA::MerchantMgr&		GWCA::Merchant()	{ return MerchantMgr::Instance(); }
-GWCA::GuildMgr&			GWCA::Guild()		{ return GuildMgr::Instance(); }
-GWCA::MapMgr&			GWCA::Map()			{ return MapMgr::Instance(); }
-GWCA::FriendListMgr&	GWCA::FriendList()	{ return FriendListMgr::Instance(); }
-GWCA::CameraMgr&		GWCA::Camera()		{ return CameraMgr::Instance(); }
-#ifdef GWAPI_USEDIRECTX
-GWCA::DirectXMgr&		GWCA::DirectX()		{ return DirectXMgr::Instance(); }
-#endif
+GWCA::ApiMgr& GWCA::ApiMgr::Instance()
+{
+	static ApiMgr* inst = new ApiMgr();
+}
+
+void GWCA::ApiMgr::AddScript(Script * script)
+{
+	scripts.push_back(script);
+}
+
+GWCA::ApiMgr& GWCA::ApiMgr::operator+=(Script * script)
+{
+	AddScript(script);
+	return *this;
+}

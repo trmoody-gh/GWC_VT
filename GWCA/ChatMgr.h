@@ -101,7 +101,7 @@ namespace GWCA {
 		typedef void(__fastcall *ChatCmd_t)(wchar_t*);
 		typedef void(__fastcall *OpenTemplate_t)(DWORD unk, ChatTemplate* info);
 
-		void RestoreHooks() override;
+		void OnDestruct() override;
 
 		Hook hk_chatlog_;
 		Hook hk_chatcmd_;

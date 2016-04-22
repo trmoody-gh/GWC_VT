@@ -9,7 +9,7 @@ GWCA::PartyMgr::PartyMgr() {
 	ori_tick_ = (Tick_t)hk_tick_.Detour(addr_tick, (BYTE*)DetourTick, tick_length);
 }
 
-void GWCA::PartyMgr::RestoreHooks() {
+void GWCA::PartyMgr::OnDestruct() {
 	hk_tick_.Retour();
 }
 

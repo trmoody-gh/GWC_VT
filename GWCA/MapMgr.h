@@ -8,8 +8,8 @@
 
 
 namespace GWCA {
-	class MapMgr : public GWCAModule<MapMgr> {
-		friend class GWCAModule<MapMgr>;
+	class MapMgr : public Module<MapMgr> {
+		friend class Module<MapMgr>;
 
 		struct PAB_ZoneMap {
 			const DWORD header = 0xAB;
@@ -49,6 +49,6 @@ namespace GWCA {
 
 	private:
 		MapMgr() {}
-		void RestoreHooks() override {}
+		void OnDestruct() override {}
 	};
 }

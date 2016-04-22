@@ -10,8 +10,8 @@
 
 namespace GWCA {
 
-	class AgentMgr : public GWCAModule<AgentMgr> {
-		friend class GWCAModule<AgentMgr>;
+	class AgentMgr : public Module<AgentMgr> {
+		friend class Module<AgentMgr>;
 
 	public:
 		// Get AgentArray Structures of player or target.
@@ -86,7 +86,7 @@ namespace GWCA {
 
 		AgentMgr();
 
-		void RestoreHooks() override;
+		void OnDestruct() override;
 
 		ChangeTarget_t change_target_;
 		Move_t move_;

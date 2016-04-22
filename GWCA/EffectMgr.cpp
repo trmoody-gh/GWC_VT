@@ -11,7 +11,7 @@ GWCA::EffectMgr::EffectMgr() {
 	ppe_retour_func_ = (PPEFunc_t)hk_post_process_effect_.Detour(MemoryMgr::PostProcessEffectFunction, (BYTE*)AlcoholHandler, 6);
 }
 
-void GWCA::EffectMgr::RestoreHooks() {
+void GWCA::EffectMgr::OnDestruct() {
 	hk_post_process_effect_.Retour();
 }
 

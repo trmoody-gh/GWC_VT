@@ -4,8 +4,8 @@
 #include "GameContext.h"
 
 namespace GWCA {
-	class PlayerMgr : public GWCAModule<PlayerMgr> {
-		friend class GWCAModule<PlayerMgr>;
+	class PlayerMgr : public Module<PlayerMgr> {
+		friend class Module<PlayerMgr>;
 	public:
 
 		GW::PlayerArray& GetPlayerArray() const {

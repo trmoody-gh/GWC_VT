@@ -25,7 +25,7 @@ GWCA::ChatMgr::ChatMgr() {
 	ori_opentemplate = (OpenTemplate_t)hk_opentemplate_.Detour(opentemplate_addr, (BYTE*)det_opentemplate, opentemplate_length);
 }
 
-void GWCA::ChatMgr::RestoreHooks() {
+void GWCA::ChatMgr::OnDestruct() {
 	hk_chatlog_.Retour();
 	hk_chatcmd_.Retour();
 	hk_opentemplate_.Retour();

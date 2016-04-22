@@ -16,8 +16,8 @@ namespace GWCA {
 		See https://github.com/GameRevision/GWLP-R/wiki/GStoC for some already explored packets.
 	*/
 
-	class StoCMgr : public GWCAModule<StoCMgr> {
-		friend class GWCAModule<StoCMgr>;
+	class StoCMgr : public Module<StoCMgr> {
+		friend class Module<StoCMgr>;
 
 	public:
 
@@ -63,7 +63,7 @@ namespace GWCA {
 		using StoCHandlerArray = GW::gw_array<StoCHandler>;
 
 		StoCMgr();
-		void RestoreHooks() override;
+		void OnDestruct() override;
 
 		static bool __fastcall StoCHandlerFunc(StoC_Pak::PacketBase* pak);
 

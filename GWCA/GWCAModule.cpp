@@ -2,6 +2,6 @@
 
 #include "GWCA.h"
 
-GWCA::GWCABaseModule::GWCABaseModule() {
-	GWCA::Api::managers.push_back(this);
+GWCA::BaseModule::BaseModule() {
+	GWCA::ApiMgr::managers.push_back(this);
 }

@@ -10,8 +10,8 @@
 
 namespace GWCA {
 
-	class EffectMgr : public GWCAModule<EffectMgr> {
-		friend class GWCAModule<EffectMgr>;
+	class EffectMgr : public Module<EffectMgr> {
+		friend class Module<EffectMgr>;
 
 	public:
 		
@@ -46,7 +46,7 @@ namespace GWCA {
 		static void __fastcall AlcoholHandler(DWORD Intensity, DWORD Tint);
 
 		EffectMgr();
-		void RestoreHooks() override;
+		void OnDestruct() override;
 
 		static PPEFunc_t ppe_retour_func_;
 		static DWORD alcohol_level_;

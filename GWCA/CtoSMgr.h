@@ -6,8 +6,8 @@
 
 namespace GWCA {
 
-	class CtoSMgr : public GWCAModule<CtoSMgr> {
-		friend class GWCAModule<CtoSMgr>;
+	class CtoSMgr : public Module<CtoSMgr> {
+		friend class Module<CtoSMgr>;
 
 	public:
 
@@ -31,7 +31,7 @@ namespace GWCA {
 		static void __fastcall packetsendintermediary(DWORD thisptr, DWORD size, DWORD* packet);
 
 		CtoSMgr();
-		void RestoreHooks() override {}
+		void OnDestruct() override {}
 	};
 
 }

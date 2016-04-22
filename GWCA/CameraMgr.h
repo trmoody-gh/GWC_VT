@@ -6,8 +6,8 @@
 
 namespace GWCA {
 
-	class CameraMgr : public GWCAModule<CameraMgr> {
-		friend class GWCAModule<CameraMgr>;
+	class CameraMgr : public Module<CameraMgr> {
+		friend class Module<CameraMgr>;
 
 	public:
 		// X,Y,Z of camera in game world.
@@ -83,7 +83,7 @@ namespace GWCA {
 	private:
 
 		CameraMgr();
-		void RestoreHooks() override;
+		void OnDestruct() override;
 
 		GW::Camera* cam_class_;
 		float* projection_matrix_;

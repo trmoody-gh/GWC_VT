@@ -8,8 +8,8 @@
 
 namespace GWCA {
 
-	class FriendListMgr : public GWCAModule<FriendListMgr> {
-		friend class GWCAModule<FriendListMgr>;
+	class FriendListMgr : public Module<FriendListMgr> {
+		friend class Module<FriendListMgr>;
 
 	public:
 
@@ -28,7 +28,7 @@ namespace GWCA {
 		typedef void(__fastcall *SetOnlineStatus_t)(DWORD status);
 		
 		FriendListMgr();
-		void RestoreHooks() override {}
+		void OnDestruct() override {}
 
 		SetOnlineStatus_t set_online_status_;
 		GW::FriendList* fList_;

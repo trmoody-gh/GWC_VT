@@ -32,6 +32,6 @@ namespace GWCA {
 
 	private:
 		GuildMgr() {}
-		void RestoreHooks() override {}
+		void OnDestruct() override {}
 	};
 }

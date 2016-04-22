@@ -7,8 +7,8 @@
 
 namespace GWCA {
 
-	class ItemMgr : public GWCAModule<ItemMgr> {
-		friend class GWCAModule<ItemMgr>;
+	class ItemMgr : public Module<ItemMgr> {
+		friend class Module<ItemMgr>;
 
 	public:
 
@@ -59,6 +59,6 @@ namespace GWCA {
 	private:
 
 		ItemMgr();
-		void RestoreHooks() override {};
+		void OnDestruct() override {};
 	};
 }

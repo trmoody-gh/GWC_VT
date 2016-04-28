@@ -98,8 +98,8 @@ bool GWCA::MemoryMgr::Scan() {
 		RenderLoopLocation = (BYTE*)scan.FindPattern("\x53\x56\xDF\xE0\xF6\xC4\x41", "xxxxxxx", 0);
 		if (RenderLoopLocation){
 			printf("RenderLoopLocation = %X\n", RenderLoopLocation);
+			GameLoopLocation = RenderLoopLocation - 0x12;
 			RenderLoopLocation = RenderLoopLocation + 0x65;
-			GameLoopLocation = RenderLoopLocation - 0x76;
 			RenderLoopLocation = GameLoopLocation + 0x5D;
 		}
 		else{

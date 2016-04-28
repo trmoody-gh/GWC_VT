@@ -7,7 +7,6 @@
 #include "GWCAModule.h"
 #include "StoCPackets.h"
 #include "GWStructures.h"
-#include "GameThreadMgr.h"
 
 namespace GWCA {
 
@@ -49,7 +48,7 @@ namespace GWCA {
 		}
 
 		void EmulatePacket(StoC_Pak::PacketBase* packet) {
-			GameThreadMgr::Instance().Enqueue(VoidOriginalHandler, packet);
+			VoidOriginalHandler(packet);
 		}
 
 	private:

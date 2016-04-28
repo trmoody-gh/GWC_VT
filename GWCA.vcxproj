@@ -96,11 +96,11 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <TargetName>GWCA_d</TargetName>
     <OutDir>$(ProjectDir)</OutDir>
-    <IncludePath>$(SolutionDir);Dependencies\;Dependencies\DirectX\Include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir);Dependencies\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <TargetName>GWCA</TargetName>
-    <IncludePath>$(SolutionDir);Dependencies\;Dependencies\DirectX\Include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir);Dependencies\;$(IncludePath)</IncludePath>
     <OutDir>$(ProjectDir)</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -115,7 +115,8 @@
       <DebugInformationFormat>OldStyle</DebugInformationFormat>
       <MinimalRebuild>false</MinimalRebuild>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <ForcedIncludeFiles>GWCA_defines.h</ForcedIncludeFiles>
+      <ForcedIncludeFiles>
+      </ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -137,7 +138,8 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <ForcedIncludeFiles>GWCA_defines.h</ForcedIncludeFiles>
+      <ForcedIncludeFiles>
+      </ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>

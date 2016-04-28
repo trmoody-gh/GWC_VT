@@ -1,7 +1,6 @@
 #include "MerchantMgr.h"
 
 #include "PatternScanner.h"
-#include "GameThreadMgr.h"
 #include "ItemMgr.h"
 
 GWCA::MerchantMgr::MerchantMgr() : Module() {
@@ -43,7 +42,7 @@ void GWCA::MerchantMgr::BuyMerchantItem(DWORD modelid, DWORD quantity /*= 1*/) {
 }
 
 void GWCA::MerchantMgr::EnqueueTransaction(TransactionType type, DWORD gold_give, TransactionPacket give /*= TransactionPacket()*/, DWORD gold_recieve, TransactionPacket recieve /*= TransactionPacket()*/) {
-	GameThreadMgr::Instance().Enqueue(transaction_function_, type, gold_give, give, gold_recieve, recieve);
+	transaction_function_(type, gold_give, give, gold_recieve, recieve);
 }
 
 GWCA::GW::Item* GWCA::MerchantMgr::GetMerchantItemByModelID(DWORD modelid) {

@@ -7,8 +7,8 @@
 
 namespace GWCA {
 
-	class GuildMgr : public GWCAModule<GuildMgr> {
-		friend class GWCAModule<GuildMgr>;
+	class GuildMgr : public Module<GuildMgr> {
+		friend class Module<GuildMgr>;
 
 	public:
 

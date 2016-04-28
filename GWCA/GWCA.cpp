@@ -1,21 +1,9 @@
 #include "GWCA.h"
 
 #include "MemoryMgr.h"
-#include "CtoSMgr.h"
-#include "AgentMgr.h"
-#include "PartyMgr.h"
-#include "ItemMgr.h"
-#include "SkillbarMgr.h"
-#include "EffectMgr.h"
-#include "MapMgr.h"
-#include "ChatMgr.h"
-#include "MerchantMgr.h"
-#include "GuildMgr.h"
-#include "FriendListMgr.h"
-#include "StoCMgr.h"
-#include "CameraMgr.h"
-#include "GWCAModule.h"
 
+#include "GWCAModule.h"
+#include "PatternScanner.h"
 #include "Hooker.h"
 
 enum e_DestructState {
@@ -68,7 +56,7 @@ void __declspec(naked) mainloopIntermediary()
 		push eax
 		push ecx
 		push edx
-		call mainLoop
+		call GWCA::ApiMgr::mainLoop
 		pop edx
 		pop ecx
 		pop eax
@@ -80,11 +68,7 @@ bool GWCA::ApiMgr::Initialize() {
 	if (MemoryMgr::Scan()) {
 		mgr_instance = new ApiMgr();
 
-		PatternScanner scan(0x401000, 0x49a000);
-		void* gameloop_addr = (void*)scan.FindPattern("\x90\x55\x8B\xEC\x83\xEC\x08\x53\x56\x8B\xD9\x57\x89\x55\xF8", "xxxxxxxxxxxxxxx", 0);
-		if (!gameloop_addr) return false;
-
-		trampoline = (void*)hk_gameloop.Detour((BYTE*)gameloop_addr, (BYTE*)mainloopIntermediary, 6);
+		trampoline = (void*)hk_gameloop.Detour(MemoryMgr::GameLoopLocation, (BYTE*)mainloopIntermediary, 6);
 
 		return true;
 	} else {
@@ -109,6 +93,7 @@ void GWCA::ApiMgr::Destruct() {
 GWCA::ApiMgr& GWCA::ApiMgr::Instance()
 {
 	static ApiMgr* inst = new ApiMgr();
+	return *inst;
 }
 
 void GWCA::ApiMgr::AddScript(Script * script)

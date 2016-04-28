@@ -1,7 +1,6 @@
 #include "CtoSMgr.h"
 
 #include "MemoryMgr.h"
-#include "GameThreadMgr.h"
 
 GWCA::CtoSMgr::SendCtoGSPacket_t GWCA::CtoSMgr::gs_send_function_ = NULL;
 
@@ -21,12 +20,5 @@ void GWCA::CtoSMgr::SendPacket(DWORD size, ...) {
 	}
 	va_end(vl);
 
-	GameThreadMgr::Instance().Enqueue(packetsendintermediary, MemoryMgr::GetGSObject(), size, pak);
-}
-
-
-void GWCA::CtoSMgr::packetsendintermediary(DWORD thisptr, DWORD size, DWORD* packet) {
-	gs_send_function_(thisptr, size, packet);
-
-	delete[] packet;
+	gs_send_function_(MemoryMgr::GetGSObject(), size, pak);
 }

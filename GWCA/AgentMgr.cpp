@@ -1,6 +1,4 @@
 #include "AgentMgr.h"
-
-#include "GameThreadMgr.h"
 #include "CtoSMgr.h"
 #include "MapMgr.h"
 
@@ -21,16 +19,16 @@ GWCA::GW::AgentArray GWCA::AgentMgr::GetAgentArray() {
 	return *(GW::AgentArray*)MemoryMgr::agArrayPtr;
 }
 
-DWORD GWCA::AgentMgr::GetDistance(const GW::GamePos& a, const GW::GamePos& b) {
-	return (DWORD)sqrtf((DWORD)(a.x - b.x) * (DWORD)(a.x - b.x) + (DWORD)(a.y - b.y) * (DWORD)(a.y - b.y));
+float GWCA::AgentMgr::GetDistance(const GW::GamePos& a, const GW::GamePos& b) {
+	return sqrtf((a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y));
 }
 
-DWORD GWCA::AgentMgr::GetSqrDistance(const GW::GamePos& a,const GW::GamePos& b) {
-	return (DWORD)(a.x- b.x) * (DWORD)(a.x - b.x) + (DWORD)(a.y - b.y) * (DWORD)(a.y - b.y);
+float GWCA::AgentMgr::GetSqrDistance(const GW::GamePos& a,const GW::GamePos& b) {
+	return (a.x- b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y);
 }
 
 void GWCA::AgentMgr::ChangeTarget(GW::Agent* Agent) {
-	GameThreadMgr::Instance().Enqueue(change_target_, Agent->Id,0);
+	change_target_( Agent->Id,0);
 }
 
 void GWCA::AgentMgr::Move(float X, float Y, DWORD ZPlane /*= 0*/) {
@@ -40,7 +38,7 @@ void GWCA::AgentMgr::Move(float X, float Y, DWORD ZPlane /*= 0*/) {
 	buf->y = Y;
 	buf->zplane = ZPlane;
 
-	GameThreadMgr::Instance().Enqueue(move_, buf);
+	move_(buf);
 }
 
 void GWCA::AgentMgr::Move(const GW::GamePos& pos) {
@@ -48,7 +46,7 @@ void GWCA::AgentMgr::Move(const GW::GamePos& pos) {
 
 	*buf = pos;
 
-	GameThreadMgr::Instance().Enqueue(move_, buf);
+	move_(buf);
 }
 
 void GWCA::AgentMgr::Dialog(DWORD id) {

@@ -1,6 +1,4 @@
 #include "EffectMgr.h"
-
-#include "GameThreadMgr.h"
 #include "CtoSMgr.h"
 
 DWORD GWCA::EffectMgr::alcohol_level_ = NULL;
@@ -61,8 +59,8 @@ void __fastcall GWCA::EffectMgr::AlcoholHandler(DWORD Intensity, DWORD Tint) {
 	return ppe_retour_func_(Intensity, Tint);
 }
 
-void GWCA::EffectMgr::GetDrunkAf(DWORD Intensity,DWORD Tint) {
-	GameThreadMgr::Instance().Enqueue(ppe_retour_func_, Intensity, Tint);
+void GWCA::EffectMgr::GetCrunkDrunk(DWORD Intensity,DWORD Tint) {
+	ppe_retour_func_(Intensity, Tint);
 }
 
 GWCA::GW::AgentEffectsArray GWCA::EffectMgr::GetPartyEffectArray() {

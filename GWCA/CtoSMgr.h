@@ -2,7 +2,6 @@
 
 #include <Windows.h>
 #include "GWCAModule.h"
-#include "GameThreadMgr.h"
 
 namespace GWCA {
 
@@ -19,7 +18,7 @@ namespace GWCA {
 		void SendPacket(T* packet)
 		{
 			DWORD size = sizeof(T);
-			GameThreadMgr::Instance().Enqueue(gs_send_function_, 
+			gs_send_function_(
 				MemoryMgr::GetGSObject(), size, (DWORD*)packet);
 		}
 
@@ -27,8 +26,6 @@ namespace GWCA {
 		typedef void(__fastcall *SendCtoGSPacket_t)(DWORD ctogsobj, DWORD size, DWORD* packet);
 
 		static SendCtoGSPacket_t gs_send_function_;
-
-		static void __fastcall packetsendintermediary(DWORD thisptr, DWORD size, DWORD* packet);
 
 		CtoSMgr();
 		void OnDestruct() override {}

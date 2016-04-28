@@ -1,6 +1,5 @@
 #include "SkillbarMgr.h"
 
-#include "GameThreadMgr.h"
 #include "CtoSMgr.h"
 #include "AgentMgr.h"
 
@@ -9,7 +8,7 @@ GWCA::GW::Skill GWCA::SkillbarMgr::GetSkillConstantData(DWORD SkillID) {
 }
 
 void GWCA::SkillbarMgr::UseSkill(DWORD Slot, DWORD Target /*= 0*/, DWORD CallTarget /*= 0*/) {
-	GameThreadMgr::Instance().Enqueue(UseSkill_, AgentMgr::Instance().GetPlayerId(), Slot, Target, CallTarget);
+	UseSkill_(AgentMgr::Instance().GetPlayerId(), Slot, Target, CallTarget);
 }
 
 GWCA::SkillbarMgr::SkillbarMgr() {

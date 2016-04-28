@@ -9,8 +9,8 @@
 
 namespace GWCA {
 
-	class ChatMgr : public GWCAModule<ChatMgr> {
-		friend class GWCAModule<ChatMgr>;
+	class ChatMgr : public Module<ChatMgr> {
+		friend class Module<ChatMgr>;
 
 		typedef DWORD Color_t;
 		typedef std::function<const void(std::wstring, std::vector<std::wstring>)> Callback_t;

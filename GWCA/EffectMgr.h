@@ -38,7 +38,7 @@ namespace GWCA {
 		DWORD GetAlcoholLevel() const { return alcohol_level_; }
 
 		// Have fun with this ;))))))))))
-		void GetDrunkAf(DWORD Intensity, DWORD Tint);
+		void GetCrunkDrunk(DWORD Intensity, DWORD Tint);
 		
 	private:
 

@@ -1,6 +1,5 @@
 #include "ItemMgr.h"
 
-#include "GameThreadMgr.h"
 #include "StoCMgr.h"
 #include "CtoSMgr.h"
 #include "MapMgr.h"

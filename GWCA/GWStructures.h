@@ -123,7 +123,8 @@ namespace GWCA {
 			BYTE unknown21[4];
 			long ModelAnimation; //Id of the current animation
 			BYTE unknown22[32];
-			WORD Allegiance; //0x100 = ally/non-attackable, 0x300 = enemy, 0x400 = spirit/pet, 0x500 = minion, 0x600 = npc/minipet
+			BYTE DaggerStatus; // 0x1 = used lead attack, 0x2 = used offhand attack, 0x3 = used dual attack
+			BYTE Allegiance;  // 0x1 = ally/non-attackable, 0x2 = neutral, 0x3 = enemy, 0x4 = spirit/pet, 0x5 = minion, 0x6 = npc/minipet
 			WORD WeaponType; //1=bow, 2=axe, 3=hammer, 4=daggers, 5=scythe, 6=spear, 7=sWORD, 10=wand, 12=staff, 14=staff
 			//Offset +0x1B4
 			WORD Skill; //0 = not using a skill. Anything else is the Id of that skill
@@ -383,7 +384,7 @@ namespace GWCA {
 			DWORD Recharge;					// 0008					
 			DWORD SkillId;					// 000C						see GWConst::SkillIds
 			DWORD Event;					// 0010	s
-			long GetRecharge() const {			// returns recharge time remaining in milliseconds, or 0 if recharged
+			long GetRecharge() const {		// returns recharge time remaining in milliseconds, or 0 if recharged
 				if (Recharge == 0) return 0;
 				return Recharge - MemoryMgr::GetSkillTimer();
 			}
@@ -391,12 +392,13 @@ namespace GWCA {
 		struct Skillbar {						// total : BC BYTEs
 			Skillbar() : AgentId(0) {}
 			DWORD AgentId;						// 0000						id of the agent whose skillbar this is
-			SkillbarSkill Skills[8];						// 0004
+			SkillbarSkill Skills[8];			// 0004
 			DWORD Disabled;
 			BYTE unknown1[8];					// 00A8	|--8 BYTEs--|
 			DWORD Casting;						// 00B0
 			BYTE unknown2[8];					// 00B4	|--8 BYTEs--|
 			static Skillbar Nil() { return Skillbar(); }
+			bool IsValid() const { return AgentId > 0; }
 		};
 
 		typedef gw_array<Skillbar> SkillbarArray;

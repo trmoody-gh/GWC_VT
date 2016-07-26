@@ -4,6 +4,7 @@
 #include "CtoSMgr.h"
 #include "MapMgr.h"
 #include "GameContext.h"
+#include "StringLogMgr.h"
 
 BYTE* GWCA::AgentMgr::dialog_log_ret_ = NULL;
 DWORD GWCA::AgentMgr::last_dialog_id_ = 0;
@@ -50,6 +51,14 @@ void GWCA::AgentMgr::Move(const GW::GamePos& pos) {
 	*buf = pos;
 
 	GameThreadMgr::Instance().Enqueue(move_, buf);
+}
+
+void GWCA::AgentMgr::StopMovingAt(float x, float y, DWORD ZPlane /*= 0*/) {
+	//CtoSMgr::Instance().SendPacket(0x4, 0x22);
+
+	DWORD xPos = *((DWORD*)&x);
+	DWORD yPos = *((DWORD*)&y);
+	CtoSMgr::Instance().SendPacket(0x10, 0x41, xPos, yPos, ZPlane);
 }
 
 void GWCA::AgentMgr::Dialog(DWORD id) {
@@ -112,6 +121,10 @@ wchar_t* GWCA::AgentMgr::GetPlayerNameByLoginNumber(DWORD loginnumber) {
 
 DWORD GWCA::AgentMgr::GetAgentIdByLoginNumber(DWORD loginnumber) {
 	return MemoryMgr::ReadPtrChain<DWORD>(MemoryMgr::GetContextPtr(), 4, 0x2C, 0x80C, 0x4C * loginnumber, 0);
+}
+
+GWCA::GW::Agent* GetAgentByName(const wchar_t* name) {
+	GWCA::StringLog()
 }
 
 const char* GWCA::AgentMgr::GetProfessionAcronym(GwConstants::Profession profession) {

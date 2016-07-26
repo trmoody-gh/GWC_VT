@@ -50,6 +50,8 @@ namespace GWCA {
 
 		void Move(const GW::GamePos& pos);
 
+		void StopMovingAt(float x, float y, DWORD ZPlane = 0);
+
 		// Same as pressing button (id) while talking to an NPC.
 		void Dialog(DWORD id);
 

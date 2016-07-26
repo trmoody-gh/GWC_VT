@@ -15,6 +15,7 @@
 #include "FriendListMgr.h"
 #include "StoCMgr.h"
 #include "CameraMgr.h"
+#include "StringLogMgr.h"
 #include "GWCAManager.h"
 
 std::vector<GWCA::GWCABaseManager*> GWCA::Api::managers;
@@ -58,4 +59,4 @@ GWCA::GuildMgr&			GWCA::Guild()		{ return GuildMgr::Instance(); }
 GWCA::MapMgr&			GWCA::Map()			{ return MapMgr::Instance(); }
 GWCA::FriendListMgr&	GWCA::FriendList()	{ return FriendListMgr::Instance(); }
 GWCA::CameraMgr&		GWCA::Camera()		{ return CameraMgr::Instance(); }
-
+GWCA::StringLogMgr&		GWCA::StringLog()	{ return StringLogMgr::Instance(); }

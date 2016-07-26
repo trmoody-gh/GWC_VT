@@ -4,6 +4,9 @@
 BYTE* GWCA::StringLogMgr::string_log_ret = NULL;
 BYTE* GWCA::StringLogMgr::string_filter1_ret = NULL;
 BYTE* GWCA::StringLogMgr::string_filter2_ret = NULL;
+BYTE* GWCA::StringLogMgr::load_finished_ret = NULL;
+
+wchar_t GWCA::StringLogMgr::StringLog[0x100][StringLogSize] = {};
 
 GWCA::StringLogMgr::StringLogMgr() {
 	PatternScanner scan("Gw.exe");

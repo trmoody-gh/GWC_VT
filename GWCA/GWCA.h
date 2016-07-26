@@ -98,6 +98,7 @@ namespace GWCA {
 	class FriendListMgr;
 	class CameraMgr;
 	class StringLogMgr;
+	class PlayerMgr;
 
 	// GWCA Module Accessors.
 	GameThreadMgr& Gamethread();
@@ -115,6 +116,7 @@ namespace GWCA {
 	FriendListMgr& FriendList();
 	CameraMgr& Camera();
 	StringLogMgr& StringLog();
+	PlayerMgr& Players();
 
 	class Api {
 		friend class GWCABaseManager;

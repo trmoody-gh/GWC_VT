@@ -109,5 +109,8 @@
     <ClCompile Include="GWCA\StringLogMgr.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="GWCA\PlayerMgr.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

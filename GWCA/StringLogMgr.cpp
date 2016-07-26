@@ -83,21 +83,21 @@ void __declspec(naked) GWCA::StringLogMgr::detourStringLog() {
 	}
 }
 
-void __declspec(naked) detourStringFilter1() {
+void __declspec(naked) GWCA::StringLogMgr::detourStringFilter1() {
 	__asm {
 		mov GWCA::StringLogMgr::NextStringType, 1
 		jmp GWCA::StringLogMgr::string_filter1_ret
 	}
 }
 
-void __declspec(naked) detourStringFilter2() {
+void __declspec(naked) GWCA::StringLogMgr::detourStringFilter2() {
 	__asm {
 		mov GWCA::StringLogMgr::NextStringType, 2
 		jmp GWCA::StringLogMgr::string_filter2_ret
 	}
 }
 
-void __declspec(naked) detourLoadFinished() {
+void __declspec(naked) GWCA::StringLogMgr::detourLoadFinished() {
 	__asm {
 		pushad
 

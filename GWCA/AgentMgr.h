@@ -80,6 +80,8 @@ namespace GWCA {
 		// Returns AgentID of player with selected loginnumber.
 		DWORD GetAgentIdByLoginNumber(DWORD loginnumber);
 
+		GW::Agent* GetAgentByName(const wchar_t* name);
+
 		// Returns the profession as short string, e.g. "W" for warrior
 		const char* GetProfessionAcronym(GwConstants::Profession profession);
 

@@ -123,8 +123,14 @@ DWORD GWCA::AgentMgr::GetAgentIdByLoginNumber(DWORD loginnumber) {
 	return MemoryMgr::ReadPtrChain<DWORD>(MemoryMgr::GetContextPtr(), 4, 0x2C, 0x80C, 0x4C * loginnumber, 0);
 }
 
-GWCA::GW::Agent* GetAgentByName(const wchar_t* name) {
-	GWCA::StringLog()
+GWCA::GW::Agent* GWCA::AgentMgr::GetAgentByName(const wchar_t* name) {
+	for (auto agent : GetAgentArray()) {
+		if (StringLogMgr::Instance().GetAgentName(agent->Id) == name) {
+			return agent;
+		}
+	}
+
+	return nullptr;
 }
 
 const char* GWCA::AgentMgr::GetProfessionAcronym(GwConstants::Profession profession) {

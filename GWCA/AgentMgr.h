@@ -80,7 +80,10 @@ namespace GWCA {
 		// Returns AgentID of player with selected loginnumber.
 		DWORD GetAgentIdByLoginNumber(DWORD loginnumber);
 
-		GW::Agent* GetAgentByName(const wchar_t* name);
+		GW::Agent* GetAgentByName(const std::wstring& name);
+
+		void DisplayAllies(bool display);
+		void DisplayEnemies(bool display);
 
 		// Returns the profession as short string, e.g. "W" for warrior
 		const char* GetProfessionAcronym(GwConstants::Profession profession);
@@ -92,6 +95,7 @@ namespace GWCA {
 		typedef void(__fastcall *ChangeTarget_t)(DWORD AgentID,DWORD smth);
 
 		typedef void(__fastcall *Move_t)(GW::GamePos* Pos);
+		typedef void(__fastcall *PerformAction_t)(DWORD actionBaseStuff, DWORD* actionPtr, DWORD flag, DWORD* actionPtr2, DWORD unk);
 
 		AgentMgr();
 
@@ -99,6 +103,7 @@ namespace GWCA {
 
 		ChangeTarget_t change_target_;
 		Move_t move_;
+		static PerformAction_t perform_action_;
 
 		Hook hk_dialog_log_;
 
@@ -106,5 +111,7 @@ namespace GWCA {
 		static DWORD last_dialog_id_;
 
 		static void detourDialogLog();
+
+		static void __fastcall performActionIntermediary(DWORD action, DWORD flag);
 	};
 }

@@ -15,6 +15,10 @@ BYTE* GWCA::MemoryMgr::MapIDPtr = NULL;
 BYTE* GWCA::MemoryMgr::GSObjectPtr = NULL;
 BYTE* GWCA::MemoryMgr::CtoGSSendFunction = NULL;
 
+// Perform Action function
+BYTE* GWCA::MemoryMgr::ActionFunction = NULL;
+BYTE* GWCA::MemoryMgr::ActionBase = NULL;
+
 // Base ptr to get context pointer, which houses basically
 BYTE* GWCA::MemoryMgr::BasePointerLocation = NULL;
 
@@ -80,6 +84,25 @@ bool GWCA::MemoryMgr::Scan() {
 		}
 		else{
 			printf("CtoGSSendFunction = ERR\n");
+			return false;
+		}
+
+		// Perform Action function
+		ActionFunction = (BYTE*)scan.FindPattern("\x8b\x7d\x08\x83\xff\x09\x8b\xf1\x75\x11\x68\x76\x01\x00\x00", "xxxxxxxxxxxxxxx", -6);
+		if (ActionFunction) {
+			printf("ActionFunction = %X\n", ActionFunction);
+		}
+		else {
+			printf("ActionFunction = ERR\n");
+			return false;
+		}
+		ActionBase = (BYTE*)scan.FindPattern("\x8B\x42\x08\xA8\x01\x75\x41\x8B\x4A\x08", "xxxxxxxxxx", -10);
+		if (ActionBase) {
+			printf("ActionBase = %X\n", ActionBase);
+			ActionBase = (BYTE*)(*(DWORD*)ActionBase);
+		}
+		else {
+			printf("ActionBase = ERR\n");
 			return false;
 		}
 

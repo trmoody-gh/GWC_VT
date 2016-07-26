@@ -31,7 +31,7 @@ namespace GWCA {
 		static DWORD NextStringType;
 		static constexpr DWORD StringLogSize = 0x200;
 
-		static wchar_t StringLog[0x100][StringLogSize];
+		static wchar_t StringLog[StringLogSize][0x80];
 	};
 
 }

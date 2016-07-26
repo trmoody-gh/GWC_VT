@@ -6,20 +6,19 @@ BYTE* GWCA::StringLogMgr::string_filter1_ret = NULL;
 BYTE* GWCA::StringLogMgr::string_filter2_ret = NULL;
 BYTE* GWCA::StringLogMgr::load_finished_ret = NULL;
 
-wchar_t GWCA::StringLogMgr::StringLog[0x100][StringLogSize] = {};
+wchar_t GWCA::StringLogMgr::StringLog[StringLogSize][0x80] = {};
 
 GWCA::StringLogMgr::StringLogMgr() {
 	PatternScanner scan("Gw.exe");
 
 	auto StringLogFunc = (BYTE*)scan.FindPattern("\x89\x3E\x8B\x7D\x10\x89\x5E\x04\x39\x7E\x08", "xxxxxxxxxxx", 0x22);
-	string_log_ret = (BYTE*)hook_string_log.Detour(StringLogFunc, (BYTE*)StringLogMgr::detourStringLog, 5);
+	string_log_ret = (BYTE*)hook_string_log.Detour(StringLogFunc, (BYTE*)StringLogMgr::detourStringLog, 6);
 
 	auto StringFilter1 = (BYTE*)scan.FindPattern("\x51\x56\x8B\x75\x08\x57\x8B\xF9\x83\x3E\x00", "xxxxxxxxxxx", -0x3);
 	string_filter1_ret = (BYTE*)hook_string_filter1.Detour(StringFilter1, (BYTE*)StringLogMgr::detourStringFilter1, 5);
 
 	auto StringFilter2 = (BYTE*)scan.FindPattern("\x51\x53\x56\x57\x8B\xF9\x33\xD2\x8B\x4F\x2C", "xxxxxxxxxxx", -0x3);
 	string_filter2_ret = (BYTE*)hook_string_filter2.Detour(StringFilter2, (BYTE*)StringLogMgr::detourStringFilter2, 5);
-
 
 	auto LoadFinishedFunc = (BYTE*)scan.FindPattern("\x8B\x56\x1C\x8B\xCF\x52\xE8", "xxxxxxx", 0);
 	load_finished_ret = (BYTE*)hook_load_finished.Detour(LoadFinishedFunc, (BYTE*)StringLogMgr::detourLoadFinished, 5);

@@ -21,6 +21,10 @@ namespace GWCA {
 		static BYTE* GSObjectPtr;
 		static BYTE* CtoGSSendFunction;
 
+		// Perform Action function
+		static BYTE* ActionFunction;
+		static BYTE* ActionBase;
+
 		// Base ptr to get context ptr for gameworld
 		static BYTE* BasePointerLocation;
 

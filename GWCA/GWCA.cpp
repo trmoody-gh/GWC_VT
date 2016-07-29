@@ -15,7 +15,7 @@
 #include "FriendListMgr.h"
 #include "StoCMgr.h"
 #include "CameraMgr.h"
-#include "StringLogMgr.h"
+#include "UIMgr.h"
 #include "PlayerMgr.h"
 #include "GWCAManager.h"
 
@@ -60,6 +60,6 @@ GWCA::GuildMgr&			GWCA::Guild()		{ return GuildMgr::Instance(); }
 GWCA::MapMgr&			GWCA::Map()			{ return MapMgr::Instance(); }
 GWCA::FriendListMgr&	GWCA::FriendList()	{ return FriendListMgr::Instance(); }
 GWCA::CameraMgr&		GWCA::Camera()		{ return CameraMgr::Instance(); }
-GWCA::StringLogMgr&		GWCA::StringLog()	{ return StringLogMgr::Instance(); }
+GWCA::UIMgr&			GWCA::UI()			{ return UIMgr::Instance(); }
 GWCA::PlayerMgr&		GWCA::Players()		{ return PlayerMgr::Instance(); }
 

@@ -301,6 +301,12 @@ namespace GWCA {
 		}; //Size=0x0030
 		using NPCArray = gw_array<NPC>;
 
+		struct AgentInfo {
+			BYTE unk1[0x34];
+			void* NameString;
+		}; //Size=0x0038
+		using AgentInfoArray = gw_array<AgentInfo>;
+
 		struct Bag;
 		struct Item;
 

@@ -158,7 +158,7 @@ namespace GWCA {
 		DWORD maxbalth; // 0x7C0
 		DWORD maximperial; // 0x7C4
 		DWORD unk6; // 0x7C8
-		gw_array<void*> unk23_array; // 0x7CC
+		AgentInfoArray agentInfos; // 0x7CC
 		gw_array<void*> unk24_array; // 0x7DC
 		MissionMapIconArray missionmapicons; // 0x7EC
 		NPCArray npcs; // 0x7FC

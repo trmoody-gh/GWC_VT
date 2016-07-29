@@ -40,7 +40,7 @@
     <ClInclude Include="GWCA\MemoryPatcher.h" />
     <ClInclude Include="GWCA\PlayerMgr.h" />
     <ClInclude Include="GWCA\PartyMgr.h" />
-    <ClInclude Include="GWCA\StringLogMgr.h" />
+    <ClInclude Include="GWCA\UIMgr.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GWCA\AgentMgr.cpp">
@@ -106,10 +106,10 @@
     <ClCompile Include="GWCA\PartyMgr.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="GWCA\StringLogMgr.cpp">
+    <ClCompile Include="GWCA\PlayerMgr.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="GWCA\PlayerMgr.cpp">
+    <ClCompile Include="GWCA\UIMgr.cpp">
       <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>

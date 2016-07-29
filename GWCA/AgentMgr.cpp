@@ -1,19 +1,18 @@
 #include "AgentMgr.h"
 
+#include <map>
 #include "GameThreadMgr.h"
 #include "CtoSMgr.h"
 #include "MapMgr.h"
 #include "GameContext.h"
-#include "StringLogMgr.h"
+#include "UIMgr.h"
 
 BYTE* GWCA::AgentMgr::dialog_log_ret_ = NULL;
 DWORD GWCA::AgentMgr::last_dialog_id_ = 0;
-GWCA::AgentMgr::PerformAction_t GWCA::AgentMgr::perform_action_ = nullptr;
 
 GWCA::AgentMgr::AgentMgr() : GWCAManager() {
 	change_target_ = (ChangeTarget_t)MemoryMgr::ChangeTargetFunction;
 	move_ = (Move_t)MemoryMgr::MoveFunction;
-	perform_action_ = (PerformAction_t)MemoryMgr::ActionFunction;
 	dialog_log_ret_ = (BYTE*)hk_dialog_log_.Detour(MemoryMgr::DialogFunc, (BYTE*)AgentMgr::detourDialogLog, 9);
 }
 
@@ -125,59 +124,37 @@ DWORD GWCA::AgentMgr::GetAgentIdByLoginNumber(DWORD loginnumber) {
 	return GameContext::instance()->world->players[loginnumber].AgentID;
 }
 
-GWCA::GW::Agent* GWCA::AgentMgr::GetAgentByName(const std::wstring& name) {
-	int tries = 0;
+std::vector<GWCA::GW::Agent*> GWCA::AgentMgr::GetAgentsWithName(const std::wstring& name) {
+	auto ctx = GameContext::instance();
+	auto agentInfoArray = ctx->world->agentInfos;
+	std::vector<GWCA::GW::Agent*> results;
 
-	while (tries < 2) {
-		tries++;
+	if (agentInfoArray.valid()) {
+		std::vector<std::future<wchar_t*>> agentNames;
 
-		auto agents = GetAgentArray();
-		for (auto agent : agents) {
-			if (agent) {
-				if (agent && StringLogMgr::Instance().GetAgentName(agent->Id) == name) {
-					return agent;
-				}
+		for (auto agentInfo : agentInfoArray) {
+			auto nameString = agentInfo.NameString;
+
+			if (nameString) {
+				agentNames.push_back(UIMgr::Instance().GetStringAsync(nameString));
+			}
+			else {
+				std::promise<wchar_t*> promise;
+				promise.set_value(nullptr);
+				agentNames.push_back(promise.get_future());
 			}
 		}
 
-		// try to obtain visible names
-		DisplayAllies(true);
-		DisplayEnemies(true);
-		Sleep(100);
-		DisplayAllies(false);
-		DisplayEnemies(false);
-		DisplayAllies(true);
-		DisplayEnemies(true);
-		Sleep(100);
-		DisplayAllies(false);
-		DisplayEnemies(false);
+		for (int i = 0; i < agentNames.size(); i++) {
+			auto& agentName = agentNames[i];
+			agentName.wait();
+			if (agentName.get() == name) {
+				results.push_back(GetAgentByID(i));
+			}
+		}
 	}
 
-	return nullptr;
-}
-
-void GWCA::AgentMgr::DisplayAllies(bool display) {
-	GameThreadMgr::Instance().Enqueue(
-		performActionIntermediary,
-		0x89,
-		display ? 0x18 : 0x1A);
-}
-
-void GWCA::AgentMgr::DisplayEnemies(bool display) {
-	GameThreadMgr::Instance().Enqueue(
-		performActionIntermediary,
-		0x94,
-		display ? 0x18 : 0x1A);
-}
-
-void GWCA::AgentMgr::performActionIntermediary(DWORD action, DWORD flag) {
-	DWORD base = MemoryMgr::ReadPtrChain<DWORD>((DWORD)MemoryMgr::ActionBase, 4, 0x170, 0x20, 0, 0);
-
-	DWORD actionStruct[3] = {
-		action, 0, 0
-	};
-
-	perform_action_(base, actionStruct, flag, actionStruct, 0);
+	return results;
 }
 
 

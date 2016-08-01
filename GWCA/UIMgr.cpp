@@ -14,23 +14,29 @@ GWCA::UIMgr::UIMgr() {
 }
 
 wchar_t* GWCA::UIMgr::GetString(void* stringInfo) {
-	auto future = GetStringAsync(stringInfo);
-	future.wait();
-	return future.get();
+	return GetStringAsync(stringInfo).get();
 }
 
 std::future<wchar_t*> GWCA::UIMgr::GetStringAsync(void* stringInfo) {
-	std::promise<wchar_t*> promise;
-	auto future = promise.get_future();
+	auto task = std::packaged_task<std::future<wchar_t*>()>([=]() {
+		auto promisePtr = new std::promise<wchar_t*>;
+		auto future = promisePtr->get_future();
 
-	GameThreadMgr::Instance().Enqueue([&]() {
-		Callback_t callback = [](wchar_t* string, std::promise<wchar_t*>* arg) {
-			(*arg).set_value(string);
+		Callback_t callback = [](std::promise<wchar_t*>* arg, wchar_t* string) {
+			arg->set_value(string);
+			delete arg;
 		};
-		getString_(stringInfo, callback, &promise);
+
+		getString_(stringInfo, callback, promisePtr);
+
+		return future;
 	});
 
-	return future;
+	auto future = task.get_future();
+
+	GameThreadMgr::Instance().EnqueueTask(std::move(task));
+
+	return future.get();
 }
 
 void GWCA::UIMgr::DisplayAllies(bool display) {

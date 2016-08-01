@@ -146,10 +146,12 @@ std::vector<GWCA::GW::Agent*> GWCA::AgentMgr::GetAgentsWithName(const std::wstri
 		}
 
 		for (int i = 0; i < agentNames.size(); i++) {
-			auto& agentName = agentNames[i];
-			agentName.wait();
-			if (agentName.get() == name) {
-				results.push_back(GetAgentByID(i));
+			auto agentName = agentNames[i].get();
+			if (agentName && agentName == name) {
+				auto agent = GetAgentByID(i);
+				if (agent) {
+					results.push_back(agent);
+				}
 			}
 		}
 	}

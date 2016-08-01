@@ -25,6 +25,17 @@ void __stdcall GWCA::GameThreadMgr::CallFunctions() {
 				Call();
 			}
 		}
+
+		if (!tasks_.empty())
+		{
+			for (auto& task : tasks_)
+			{
+				task->run();
+			}
+
+			tasks_.clear();
+		}
+
 		LeaveCriticalSection(&criticalsection_);
 	}
 }

@@ -17,7 +17,7 @@ namespace GWCA {
 	private:
 		UIMgr();
 
-		typedef void(__fastcall *Callback_t)(wchar_t* string, std::promise<wchar_t*>* arg);
+		typedef void(__fastcall *Callback_t)(std::promise<wchar_t*>* arg, wchar_t* string);
 		typedef void(__fastcall *GetString_t)(void* stringInfo, Callback_t callback, std::promise<wchar_t*>* arg);
 		typedef void(__fastcall *PerformAction_t)(DWORD actionBaseStuff, DWORD* actionPtr, DWORD flag, DWORD* actionPtr2, DWORD unk);
 

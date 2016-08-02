@@ -59,3 +59,10 @@ void GWCA::UIMgr::performActionIntermediary(DWORD action, DWORD flag) {
 
 	UIMgr::Instance().performAction_(base, actionStruct, flag, actionStruct, 0);
 }
+
+void GWCA::UIMgr::MoveBackward(bool on) {
+	GameThreadMgr::Instance().Enqueue(
+		performActionIntermediary,
+		0xAC,
+		on ? 0x18 : 0x1A);
+}

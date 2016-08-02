@@ -50,7 +50,7 @@ namespace GWCA {
 
 		void Move(const GW::GamePos& pos);
 
-		void StopMovingAt(float x, float y, DWORD ZPlane = 0);
+		void PlayerStopMoving();
 
 		// Same as pressing button (id) while talking to an NPC.
 		void Dialog(DWORD id);
@@ -81,6 +81,7 @@ namespace GWCA {
 		DWORD GetAgentIdByLoginNumber(DWORD loginnumber);
 
 		std::vector<GW::Agent*> GetAgentsWithName(const std::wstring& name);
+		std::wstring GetAgentName(DWORD agentId);
 
 		// Returns the profession as short string, e.g. "W" for warrior
 		const char* GetProfessionAcronym(GwConstants::Profession profession);

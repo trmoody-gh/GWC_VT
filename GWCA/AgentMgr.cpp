@@ -54,12 +54,9 @@ void GWCA::AgentMgr::Move(const GW::GamePos& pos) {
 	GameThreadMgr::Instance().Enqueue(move_, buf);
 }
 
-void GWCA::AgentMgr::StopMovingAt(float x, float y, DWORD ZPlane /*= 0*/) {
-	//CtoSMgr::Instance().SendPacket(0x4, 0x22);
-
-	DWORD xPos = *((DWORD*)&x);
-	DWORD yPos = *((DWORD*)&y);
-	CtoSMgr::Instance().SendPacket(0x10, 0x41, xPos, yPos, ZPlane);
+void GWCA::AgentMgr::PlayerStopMoving() {
+	UIMgr::Instance().MoveBackward(true);
+	UIMgr::Instance().MoveBackward(false);
 }
 
 void GWCA::AgentMgr::Dialog(DWORD id) {
@@ -157,6 +154,17 @@ std::vector<GWCA::GW::Agent*> GWCA::AgentMgr::GetAgentsWithName(const std::wstri
 	}
 
 	return results;
+}
+
+std::wstring GWCA::AgentMgr::GetAgentName(DWORD agentId) {
+	auto agentInfoArray = GameContext::instance()->world->agentInfos;
+
+	if (agentInfoArray.valid()) {
+		auto nameString = agentInfoArray[agentId].NameString;
+		return UIMgr::Instance().GetString(nameString);
+	}
+
+	return nullptr;
 }
 
 

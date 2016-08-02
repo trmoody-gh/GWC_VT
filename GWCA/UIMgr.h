@@ -14,6 +14,7 @@ namespace GWCA {
 		std::future<wchar_t*> GetStringAsync(void* stringInfo);
 		void DisplayAllies(bool display);
 		void DisplayEnemies(bool display);
+		void MoveBackward(bool on);
 	private:
 		UIMgr();
 
